@@ -37,8 +37,8 @@
 ### Thumb positions
 | Position | Location | Default binding |
 |----------|----------|-----------------|
-| 30 | Left inner thumb | `LT(NAV, TAB)` |
-| 31 | Left outer thumb | `ENTER` |
+| 30 | Left outer thumb | `ENTER` |
+| 31 | Left inner thumb | `LT(NAV, TAB)` |
 | 32 | Right inner thumb | `LT(NUM, SPACE)` |
 | 33 | Right outer thumb | `LT(SYM, BSPC)` |
 
@@ -71,7 +71,7 @@ Behavior: `tap-preferred`, `tapping-term-ms = 200`
 
 | Combo | Positions | Action |
 |-------|-----------|--------|
-| ZMK Studio unlock | 30 + 33 (left inner + right outer thumb) | `&studio_unlock` |
+| ZMK Studio unlock | 31 + 32 (both inner thumbs) | `&studio_unlock` |
 
 Combo timeout: 100ms
 
