@@ -89,6 +89,7 @@ Row 2: exit —   —   —   —   │  —   —   —   —  exit
 
 | Combo | Positions | Action |
 |-------|-----------|--------|
+| Tab | 12 + 13 (D + F) | Tab |
 | ESC | 30 + 10 (GUI + A) | ESC |
 | CAPS | 30 + 11 (GUI + S) | Caps Lock |
 | Enter sym | 13 + 16 (F + J) | Switch to layer 1 |

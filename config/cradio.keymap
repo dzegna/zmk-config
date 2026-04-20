@@ -47,6 +47,13 @@
             bindings = <&kp CAPS>;
         };
 
+        // D + F (12 + 13) — tab
+        tab_combo {
+            timeout-ms = <50>;
+            key-positions = <12 13>;
+            bindings = <&kp TAB>;
+        };
+
         // F + J (13 + 16) — enter sym layer
         sym_enter {
             timeout-ms = <50>;
