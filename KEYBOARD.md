@@ -39,17 +39,17 @@
 Row 0:  Q   W   E   R   T  │  Y   U   I   O   P
 Row 1:  A   S   D   F   G  │  H   J   K   L  BSP
 Row 2:  Z   X   C   V   B  │  N   M   ,   .   /
-Thumb: GUI ALT              │ S/SP ENT
+Thumb: ALT GUI              │ S/SP ENT/HYP
 ```
 
 ### Thumb positions
 
 | Pos | Location | Tap | Hold |
 |-----|----------|-----|------|
-| 30 | Left outer | LGUI (⌘) | — |
-| 31 | Left inner | LALT (⌥) | — |
+| 30 | Left outer | LALT (⌥) | — |
+| 31 | Left inner | LGUI (⌘) | — |
 | 32 | Right inner | Space | Shift |
-| 33 | Right outer | Enter | — |
+| 33 | Right outer | Enter | Hyper |
 
 ## Layers
 
@@ -90,8 +90,8 @@ Row 2: exit —   —   —   —   │  —   —   —   —  exit
 | Combo | Positions | Action |
 |-------|-----------|--------|
 | Tab | 12 + 13 (D + F) | Tab |
-| ESC | 30 + 10 (GUI + A) | ESC |
-| CAPS | 30 + 11 (GUI + S) | Caps Lock |
+| ESC | 30 + 32 + 10 (ALT + Shift + A) | ESC |
+| CAPS | 30 + 11 (ALT + S) | Caps Lock |
 | Enter sym | 13 + 16 (F + J) | Switch to layer 1 |
 | Exit sym | 14 + 15 (G + H) | Switch to layer 0 |
 | Nav toggle | 20 + 29 (Z + /) | Toggle layer 2 |

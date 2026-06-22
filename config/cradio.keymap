@@ -14,7 +14,7 @@
 // Row 0:  Q   W   E   R   T  │  Y   U   I   O   P
 // Row 1:  A   S   D   F   G  │  H   J   K   L  BSP
 // Row 2:  Z   X   C   V   B  │  N   M   ,   .   /
-// Thumb: GUI ALT              │ S/SP ENT
+// Thumb: ALT GUI              │ S/SP ENT/HYP
 
 / {
     behaviors {
@@ -33,10 +33,10 @@
     combos {
         compatible = "zmk,combos";
 
-        // Left outer thumb + A (30 + 10)
+        // Left outer thumb + right inner thumb + A (30 + 32 + 10)
         esc_combo {
             timeout-ms = <50>;
-            key-positions = <30 10>;
+            key-positions = <30 32 10>;
             bindings = <&kp ESC>;
         };
 
@@ -92,7 +92,7 @@
 &kp Q  &kp W  &kp E  &kp R  &kp T      &kp Y  &kp U     &kp I      &kp O    &kp P
 &kp A  &kp S  &kp D  &kp F  &kp G      &kp H  &kp J     &kp K      &kp L    &kp BSPC
 &kp Z  &kp X  &kp C  &kp V  &kp B      &kp N  &kp M     &kp COMMA  &kp DOT  &kp SLASH
-                  &kp LGUI  &kp LALT   &th LSHFT SPC  &kp ENTER
+                  &kp LALT  &kp LGUI   &th LSHFT SPC  &th LC(LS(LA(LGUI))) ENTER
             >;
         };
 
