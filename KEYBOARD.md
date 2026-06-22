@@ -37,7 +37,7 @@
 
 ```
 Row 0:  Q   W   E   R   T  │  Y   U   I   O   P
-Row 1:  A   S   D   F   G  │  H   J   K   L  BSP
+Row 1:  A   S   D   F   G  │  H   J   K   L  BSP/'
 Row 2:  Z   X   C   V   B  │  N   M   ,   .   /
 Thumb: ALT GUI              │ S/SP ENT/HYP
 ```
@@ -57,7 +57,7 @@ Thumb: ALT GUI              │ S/SP ENT/HYP
 |---|------|---------------|
 | 0 | Default | — |
 | 1 | Sym | F+J combo (enter) / G+H combo (exit) |
-| 2 | Nav | Z+/ combo (toggle) |
+| 2 | Nav | Z+/ combo (toggle), or hold 30+33 outside thumbs |
 | 3 | BT | Q+P combo (toggle) |
 
 ### Layer 1 — Sym
@@ -90,14 +90,22 @@ Row 2: exit —   —   —   —   │  —   —   —   —  exit
 | Combo | Positions | Action |
 |-------|-----------|--------|
 | Tab | 12 + 13 (D + F) | Tab |
-| ESC | 30 + 32 + 10 (ALT + Shift + A) | ESC |
+| ESC | 11 + 12 (S + D) | ESC |
 | CAPS | 30 + 11 (ALT + S) | Caps Lock |
 | Enter sym | 13 + 16 (F + J) | Switch to layer 1 |
 | Exit sym | 14 + 15 (G + H) | Switch to layer 0 |
 | Nav toggle | 20 + 29 (Z + /) | Toggle layer 2 |
 | BT toggle | 0 + 9 (Q + P) | Toggle layer 3 |
+| Nav hold | 30 + 33 (outside thumbs) | Hold layer 2 |
 
 Combo timeout: 50ms
+
+## Modified Keys
+
+| Press | Action |
+|-------|--------|
+| Shift + 19 (Backspace) | `'` |
+| Hold 30 + 33, then H/J/K/L | Arrow keys: left/down/up/right |
 
 ## Flashing
 
