@@ -57,7 +57,7 @@ Thumb: ALT GUI              │ S/SP ENT/HYP
 |---|------|---------------|
 | 0 | Default | — |
 | 1 | Sym | F+J combo (enter) / G+H combo (exit), or hold 31+32 inside thumbs |
-| 2 | Nav | Z+/ combo (toggle), or hold 30+33 outside thumbs |
+| 2 | Nav + Mouse | Z+/ combo (toggle), or hold 30+33 outside thumbs |
 | 3 | BT | Q+P combo (toggle) |
 
 ### Layer 1 — Sym
@@ -67,11 +67,11 @@ Row 1:  1   2   3   4   5  │  6   7   8   9   0
 Row 2:  `   [   ]   {   }  │  \   -   =   ;   '
 ```
 
-### Layer 2 — Nav
+### Layer 2 — Nav + Mouse
 ```
 Row 0: F1  F2  F3  F4  F5  │  F6  F7  F8  F9 F10
-Row 1: F11 F12  —   —   —  │  ←   ↓   ↑   →   —
-Row 2: exit —   —   —   —  │ HOM PGD PGU END exit
+Row 1: ML  MD  MU  MR LCLK │  ←   ↓   ↑   →   —
+Row 2: exit —   —   — RCLK │ HOM PGD PGU END exit
 ```
 
 ### Layer 3 — BT
@@ -107,6 +107,8 @@ Combo timeout: 50ms
 |-------|--------|
 | Shift + 19 (Backspace) | `'` |
 | Hold 30 + 33, then H/J/K/L | Arrow keys: left/down/up/right |
+| On layer 2, A/S/D/F | Mouse move left/down/up/right |
+| On layer 2, G/B | Left click / right click |
 
 ## Flashing
 
