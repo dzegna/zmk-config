@@ -49,14 +49,14 @@ Thumb: ALT GUI              │ S/SP ENT/HYP
 | 30 | Left outer | LALT (⌥) | — |
 | 31 | Left inner | LGUI (⌘) | — |
 | 32 | Right inner | Space | Shift |
-| 33 | Right outer | Enter | Hyper |
+| 33 | Right outer | Enter | Hyper without Shift (⌃⌥⌘) |
 
 ## Layers
 
 | # | Name | How to access |
 |---|------|---------------|
 | 0 | Default | — |
-| 1 | Sym | F+J combo (enter) / G+H combo (exit) |
+| 1 | Sym | F+J combo (enter) / G+H combo (exit), or hold 31+32 inside thumbs |
 | 2 | Nav | Z+/ combo (toggle), or hold 30+33 outside thumbs |
 | 3 | BT | Q+P combo (toggle) |
 
@@ -94,6 +94,7 @@ Row 2: exit —   —   —   —   │  —   —   —   —  exit
 | CAPS | 30 + 11 (ALT + S) | Caps Lock |
 | Enter sym | 13 + 16 (F + J) | Switch to layer 1 |
 | Exit sym | 14 + 15 (G + H) | Switch to layer 0 |
+| Sym hold | 31 + 32 (inside thumbs) | Hold layer 1 |
 | Nav toggle | 20 + 29 (Z + /) | Toggle layer 2 |
 | BT toggle | 0 + 9 (Q + P) | Toggle layer 3 |
 | Nav hold | 30 + 33 (outside thumbs) | Hold layer 2 |
