@@ -92,6 +92,7 @@ Row 2: exit —   —   —   —   │  —   —   —   —  exit
 | Tab | 12 + 13 (D + F) | Tab |
 | ESC | 11 + 12 (S + D) | ESC |
 | CAPS | 30 + 11 (ALT + S) | Caps Lock |
+| Ctrl hold | 30 + 31 (left thumbs) | Hold Ctrl |
 | Enter sym | 13 + 16 (F + J) | Switch to layer 1 |
 | Exit sym | 14 + 15 (G + H) | Switch to layer 0 |
 | Sym hold | 31 + 32 (inside thumbs) | Hold layer 1 |
@@ -106,6 +107,7 @@ Combo timeout: 50ms
 | Press | Action |
 |-------|--------|
 | Shift + 19 (Backspace) | `'` |
+| Hold 30 + 31 | Ctrl |
 | Hold 30 + 33, then H/J/K/L | Arrow keys: left/down/up/right |
 | On layer 2, A/S/D/F | Mouse move left/down/up/right |
 | On layer 2, G/B | Left click / right click |
