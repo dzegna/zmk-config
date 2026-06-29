@@ -16,11 +16,36 @@
 // Row 1:  A   S   D   F   G  │  H   J   K   L  BSP
 // Row 2:  Z   X   C   V   B  │  N   M   ,   .   /
 // Thumb: ALT GUI              │ S/SP ENT/HYP
+//
+// Layer switches (combos): G+H -> 0, F+J -> 1, D+K -> 2, Q+P -> 3
+// Momentary holds (combos): inside thumbs 31+32 -> layer 1, outside thumbs 30+33 -> layer 2
 
 / {
+    macros {
+        // macOS "Unicode Hex Input": hold Option, type the hex code, release.
+        // ← U+2190
+        uni_larr: uni_larr {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp N2 &kp N1 &kp N9 &kp N0>
+                , <&macro_release &kp LALT>;
+        };
+
+        // → U+2192
+        uni_rarr: uni_rarr {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp N2 &kp N1 &kp N9 &kp N2>
+                , <&macro_release &kp LALT>;
+        };
+    };
+
     behaviors {
         // Thumb hold-tap: tap=key, hold=modifier
-        // balanced: hold fires when another key is pressed+released while held
         th: thumb_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -30,11 +55,84 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // Backspace normally; single quote when either Shift is held.
+        // Quote tap-dance: 1 tap = ' , 2 fast taps = "
+        td_quote: td_quote {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp APOS>, <&kp DQT>;
+        };
+
+        // Backspace normally; on Shift, a single/double-quote tap-dance.
         bspc_quote: backspace_quote_mod_morph {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp BSPC>, <&kp APOS>;
+            bindings = <&kp BSPC>, <&td_quote>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        // Layer 1 row 0 mod-morphs: base symbol unshifted, math glyph on Shift.
+        // ( / _
+        m_lpar_under: m_lpar_under {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LPAR>, <&kp UNDER>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        // ) / -
+        m_rpar_minus: m_rpar_minus {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp RPAR>, <&kp MINUS>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        // [ / ← (Unicode)
+        m_lbkt_larr: m_lbkt_larr {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LBKT>, <&uni_larr>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        // ] / → (Unicode)
+        m_rbkt_rarr: m_rbkt_rarr {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp RBKT>, <&uni_rarr>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        // { / ≤  (macOS Option+,)
+        m_lbrc_le: m_lbrc_le {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LBRC>, <&kp RA(COMMA)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        // } / ≥  (macOS Option+.)
+        m_rbrc_ge: m_rbrc_ge {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp RBRC>, <&kp RA(DOT)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        // < / ≠  (macOS Option+=)
+        m_lt_ne: m_lt_ne {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LT>, <&kp RA(EQUAL)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        // > / ≈  (macOS Option+x)
+        m_gt_approx: m_gt_approx {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp GT>, <&kp RA(X)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        // + / =
+        m_plus_eq: m_plus_eq {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp PLUS>, <&kp EQUAL>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
     };
@@ -42,75 +140,87 @@
     combos {
         compatible = "zmk,combos";
 
-        // S + D (11 + 12)
+        // ---- Letter combos: 75 ms + idle guard so they don't fire mid-word ----
+
+        // S + D -> Escape
         esc_combo {
-            timeout-ms = <50>;
+            timeout-ms = <75>;
+            require-prior-idle-ms = <125>;
             key-positions = <11 12>;
             bindings = <&kp ESC>;
         };
 
-        // Left outer thumb + S (30 + 11)
+        // Left outer thumb + S -> Caps Lock
         caps_combo {
-            timeout-ms = <50>;
+            timeout-ms = <75>;
+            require-prior-idle-ms = <125>;
             key-positions = <30 11>;
             bindings = <&kp CAPS>;
         };
 
-        // Left outer + inner thumbs (30 + 31) — hold Ctrl
+        // D + F -> Tab
+        tab_combo {
+            timeout-ms = <75>;
+            require-prior-idle-ms = <125>;
+            key-positions = <12 13>;
+            bindings = <&kp TAB>;
+        };
+
+        // ---- Thumb holds: 150 ms + slow-release ----
+
+        // Left thumbs (30 + 31) -> momentary Ctrl
         ctrl_hold {
-            timeout-ms = <50>;
+            timeout-ms = <150>;
             key-positions = <30 31>;
             bindings = <&kp LCTRL>;
             slow-release;
         };
 
-        // D + F (12 + 13) — tab
-        tab_combo {
-            timeout-ms = <50>;
-            key-positions = <12 13>;
-            bindings = <&kp TAB>;
+        // Inside thumbs (31 + 32) -> momentary layer 1
+        sym_hold {
+            timeout-ms = <150>;
+            key-positions = <31 32>;
+            bindings = <&mo 1>;
+            slow-release;
         };
 
-        // F + J (13 + 16) — enter sym layer
-        sym_enter {
-            timeout-ms = <50>;
-            key-positions = <13 16>;
-            bindings = <&to 1>;
+        // Outside thumbs (30 + 33) -> momentary layer 2
+        nav_hold {
+            timeout-ms = <150>;
+            key-positions = <30 33>;
+            bindings = <&mo 2>;
+            slow-release;
         };
 
-        // G + H (14 + 15) — exit sym layer to default
-        sym_exit {
-            timeout-ms = <50>;
+        // ---- Layer switches: 100 ms, &to (switch-and-latch) ----
+
+        // G + H -> base layer. Idle guard because the "gh" digraph is common.
+        home_combo {
+            timeout-ms = <100>;
+            require-prior-idle-ms = <125>;
             key-positions = <14 15>;
             bindings = <&to 0>;
         };
 
-        // Inside thumbs (31 + 32) — hold sym layer
-        sym_hold {
-            timeout-ms = <50>;
-            key-positions = <31 32>;
-            bindings = <&mo 1>;
+        // F + J -> layer 1 (Sym + Num)
+        sym_switch {
+            timeout-ms = <100>;
+            key-positions = <13 16>;
+            bindings = <&to 1>;
         };
 
-        // Z + / (20 + 29) — toggle nav layer
-        nav_toggle {
-            timeout-ms = <50>;
-            key-positions = <20 29>;
-            bindings = <&tog 2>;
+        // D + K -> layer 2 (Nav)
+        nav_switch {
+            timeout-ms = <100>;
+            key-positions = <12 17>;
+            bindings = <&to 2>;
         };
 
-        // Outside thumbs (30 + 33) — hold nav layer for H/J/K/L arrows
-        nav_hold {
-            timeout-ms = <50>;
-            key-positions = <30 33>;
-            bindings = <&mo 2>;
-        };
-
-        // Q + P (0 + 9) — toggle BT/system layer
-        bt_toggle {
-            timeout-ms = <50>;
+        // Q + P -> layer 3 (BT/System)
+        bt_switch {
+            timeout-ms = <100>;
             key-positions = <0 9>;
-            bindings = <&tog 3>;
+            bindings = <&to 3>;
         };
     };
 
@@ -128,36 +238,39 @@
         };
 
         // Layer 1 — Symbols + Numbers
-        // Enter: F+J   Exit: G+H
+        // Switch: F+J   Home: G+H   Momentary: inside thumbs 31+32
+        // Row 0 unshifted: ` ( ) [ ] { } < > +
+        // Row 0 shifted:   ~ _ - ← → ≤ ≥ ≠ ≈ =
+        // Row 1: digits 1-0 (Shift -> ! @ # $ % ^ & * ( ))
         sym_layer {
             bindings = <
-&kp EXCL   &kp AT    &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp STAR   &kp LPAR  &kp RPAR
-&kp N1     &kp N2    &kp N3    &kp N4    &kp N5       &kp N6     &kp N7     &kp N8     &kp N9    &kp N0
-&kp GRAVE  &kp LBKT  &kp RBKT  &kp LBRC  &kp RBRC     &kp BSLH   &kp MINUS  &kp EQUAL  &kp SCLN  &kp APOS
-                          &trans  &trans                &trans  &trans
+&kp GRAVE  &m_lpar_under  &m_rpar_minus  &m_lbkt_larr  &m_rbkt_rarr     &m_lbrc_le  &m_rbrc_ge  &m_lt_ne  &m_gt_approx  &m_plus_eq
+&kp N1     &kp N2         &kp N3         &kp N4        &kp N5            &kp N6      &kp N7      &kp N8    &kp N9        &kp N0
+&trans     &trans         &trans         &trans        &trans           &trans      &trans      &trans    &trans        &trans
+                                     &trans  &trans                     &trans  &trans
             >;
         };
 
         // Layer 2 — Nav + Function keys + mouse
-        // Toggle: Z+/
+        // Switch: D+K   Home: G+H or single Z// exit   Momentary: outside thumbs 30+33
         nav_layer {
             bindings = <
 &kp F1   &kp F2   &kp F3  &kp F4  &kp F5     &kp F6    &kp F7    &kp F8    &kp F9     &kp F10
 &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP  &mmv MOVE_RIGHT  &mkp LCLK     &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT  &trans
-&tog 2          &trans          &trans        &trans           &mkp RCLK     &kp HOME  &kp PG_DN &kp PG_UP &kp END    &tog 2
+&to 0           &trans          &trans        &trans           &mkp RCLK     &kp HOME  &kp PG_DN &kp PG_UP &kp END    &to 0
                       &trans  &trans         &trans  &trans
             >;
         };
 
         // Layer 3 — Bluetooth + System
-        // Toggle: Q+P
+        // Switch: Q+P   Home: G+H or single Z// exit
         // Row 0: select BT profile 0–4
         // Row 1: clear pairings | USB output | BLE output
         bt_layer {
             bindings = <
 &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &trans  &trans  &trans  &trans  &trans
 &bt BT_CLR    &out OUT_USB  &out OUT_BLE  &trans        &trans           &trans  &trans  &trans  &trans  &trans
-&tog 3        &trans        &trans        &trans        &trans           &trans  &trans  &trans  &trans  &tog 3
+&to 0         &trans        &trans        &trans        &trans           &trans  &trans  &trans  &trans  &to 0
                                 &trans  &trans                           &trans  &trans
             >;
         };
