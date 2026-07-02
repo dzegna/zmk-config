@@ -135,6 +135,22 @@
             bindings = <&kp PLUS>, <&kp EQUAL>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
+
+        // Layer 2 mouse mod-morphs: click unshifted, scroll on Shift.
+        // Left click / scroll up
+        m_lclk_sup: m_lclk_sup {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&mkp LCLK>, <&msc SCRL_UP>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        // Right click / scroll down
+        m_rclk_sdn: m_rclk_sdn {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&mkp RCLK>, <&msc SCRL_DOWN>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
     };
 
     combos {
@@ -256,8 +272,8 @@
         nav_layer {
             bindings = <
 &kp F1   &kp F2   &kp F3  &kp F4  &kp F5     &kp F6    &kp F7    &kp F8    &kp F9     &kp F10
-&mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP  &mmv MOVE_RIGHT  &mkp LCLK     &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT  &trans
-&to 0           &trans          &trans        &trans           &mkp RCLK     &kp HOME  &kp PG_DN &kp PG_UP &kp END    &to 0
+&mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP  &mmv MOVE_RIGHT  &m_lclk_sup   &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT  &trans
+&to 0           &trans          &trans        &trans           &m_rclk_sdn   &kp HOME  &kp PG_DN &kp PG_UP &kp END    &to 0
                       &trans  &trans         &trans  &trans
             >;
         };
